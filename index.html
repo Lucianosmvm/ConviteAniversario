@@ -9,6 +9,14 @@
 <title>🎂 Aniversário do Derick – Hogwarts</title>
 <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
+  @font-face {
+    font-family: 'HarryP';
+    src: url('fonts/HarryP.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+</style>
+<style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -34,7 +42,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'IM Fell English', serif;
+    font-family: 'HarryP', 'IM Fell English', serif;
     padding: 16px 12px 32px;
   }
 
@@ -82,85 +90,98 @@
   }
 
   .env-body {
-    background: linear-gradient(135deg, #D4B896 0%, #C9A97A 40%, #B8965A 100%);
-    border: 2px solid var(--gold);
-    border-radius: 6px;
-    padding: 52px 28px 36px;
+    background: linear-gradient(175deg, #F2E8CC 0%, #EAD9AE 60%, #DEC98A 100%);
+    border: 1px solid rgba(180,150,70,0.3);
+    border-radius: 4px;
     position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.2);
-    text-align: center;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 130px 28px 20px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.3);
+    overflow: hidden;
   }
 
+  /* Triângulo apontando para baixo = aba do envelope fechado */
   .env-flap-top {
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 0;
-    border-left: 50vw solid transparent;
-    border-right: 50vw solid transparent;
-    border-top: 130px solid #C4A070;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-    transition: transform 0.6s ease;
+    height: 120px;
+    background: linear-gradient(165deg, #EAD898 0%, #D9C47A 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top center;
+    transition: clip-path 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
     z-index: 2;
-    max-width: 100%;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.08);
   }
 
-  .env-seal {
+  /* Emblema (brasão) centralizado sobre a aba */
+  .env-emblem-wrap {
     position: absolute;
-    top: 50px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 66px; height: 66px;
-    background: radial-gradient(circle, var(--burgundy) 0%, var(--burgundy-dark) 100%);
-    border-radius: 50%;
-    border: 3px solid var(--gold);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 26px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5), 0 0 20px var(--glow);
     z-index: 3;
-    animation: sealPulse 2s ease-in-out infinite;
-    cursor: pointer;
+    transition: opacity 0.35s;
+    text-align: center;
   }
-  @keyframes sealPulse {
-    0%,100% { box-shadow: 0 4px 15px rgba(0,0,0,0.5), 0 0 20px var(--glow); }
-    50% { box-shadow: 0 4px 25px rgba(0,0,0,0.5), 0 0 40px var(--glow); }
+  .env-emblem-wrap img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    filter: sepia(0.1) opacity(0.88);
+    display: block;
   }
 
+  /* Endereço no meio */
   .env-address {
-    font-family: 'Uncial Antiqua', cursive;
+    font-family: 'HarryP', 'Uncial Antiqua', cursive;
     color: var(--ink);
-    font-size: 0.82rem;
-    line-height: 2;
-    margin-top: 16px;
+    font-size: 0.78rem;
+    line-height: 1.9;
+    text-align: center;
+    z-index: 1;
+    margin-bottom: 10px;
   }
   .env-address .recipient {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--burgundy-dark);
     font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
   }
 
-  .env-stamp {
-    position: absolute;
-    top: 14px; right: 14px;
-    width: 48px; height: 58px;
-    border: 2px solid var(--gold);
-    background: linear-gradient(135deg, #1A1A2E, #3D0A10);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+  /* Lacre de cera na parte inferior */
+  .env-seal-wrap {
+    z-index: 3;
+    transition: opacity 0.35s;
+    animation: sealPulse 2.2s ease-in-out infinite;
+  }
+  .env-seal-wrap img {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    display: block;
+  }
+  @keyframes sealPulse {
+    0%,100% { filter: drop-shadow(0 0 6px rgba(160,20,20,0.4)); }
+    50%      { filter: drop-shadow(0 0 18px rgba(160,20,20,0.75)); }
   }
 
   .open-hint {
-    margin-top: 20px;
-    font-family: 'IM Fell English', serif;
+    margin-top: 10px;
+    font-family: 'HarryP', 'IM Fell English', serif;
     font-style: italic;
     color: var(--burgundy-dark);
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     animation: blink 1.5s ease-in-out infinite;
+    z-index: 1;
   }
   @keyframes blink {
     0%,100% { opacity: 1; }
-    50% { opacity: 0.4; }
+    50% { opacity: 0.35; }
   }
 
   /* ── INVITE CARD ── */
@@ -222,7 +243,7 @@
 
   .school-badge {
     text-align: center;
-    font-family: 'Cinzel', serif;
+    font-family: 'HarryP', 'Cinzel', serif;
     font-size: 0.6rem;
     letter-spacing: 0.18em;
     color: var(--burgundy);
@@ -241,7 +262,7 @@
   }
 
   .invite-heading {
-    font-family: 'Uncial Antiqua', cursive;
+    font-family: 'HarryP', 'Uncial Antiqua', cursive;
     color: var(--burgundy);
     text-align: center;
     font-size: 0.92rem;
@@ -250,7 +271,7 @@
   }
 
   .birthday-name {
-    font-family: 'Uncial Antiqua', cursive;
+    font-family: 'HarryP', 'Uncial Antiqua', cursive;
     color: var(--burgundy-dark);
     text-align: center;
     font-size: 2.4rem;
@@ -275,7 +296,7 @@
   .age-badge span {
     background: var(--burgundy);
     color: var(--gold-light);
-    font-family: 'Cinzel', serif;
+    font-family: 'HarryP', 'Cinzel', serif;
     font-size: 0.72rem;
     letter-spacing: 0.12em;
     padding: 5px 16px;
@@ -309,7 +330,7 @@
   }
   .detail-icon { font-size: 1.3rem; margin-bottom: 3px; }
   .detail-label {
-    font-family: 'Cinzel', serif;
+    font-family: 'HarryP', 'Cinzel', serif;
     font-size: 0.55rem;
     letter-spacing: 0.1em;
     color: var(--burgundy);
@@ -348,7 +369,7 @@
     text-align: center;
   }
   .rsvp-header h3 {
-    font-family: 'Uncial Antiqua', cursive;
+    font-family: 'HarryP', 'Uncial Antiqua', cursive;
     color: var(--gold-light);
     font-size: 0.95rem;
     letter-spacing: 0.04em;
@@ -368,7 +389,7 @@
   .form-group { margin-bottom: 16px; }
   .form-group label {
     display: block;
-    font-family: 'Cinzel', serif;
+    font-family: 'HarryP', 'Cinzel', serif;
     font-size: 0.68rem;
     letter-spacing: 0.1em;
     color: var(--burgundy);
@@ -383,7 +404,7 @@
     border: 1px solid rgba(201,168,76,0.6);
     border-radius: 4px;
     padding: 12px 14px;
-    font-family: 'IM Fell English', serif;
+    font-family: 'HarryP', 'IM Fell English', serif;
     font-size: 16px; /* 16px evita zoom no iOS */
     color: var(--ink);
     outline: none;
@@ -410,7 +431,7 @@
     border: 2px solid transparent;
     border-radius: 6px;
     cursor: pointer;
-    font-family: 'Cinzel', serif;
+    font-family: 'HarryP', 'Cinzel', serif;
     font-size: 0.68rem;
     letter-spacing: 0.04em;
     transition: background 0.2s, color 0.2s;
@@ -438,7 +459,7 @@
     border: 2px solid var(--gold);
     border-radius: 6px;
     padding: 16px 20px;
-    font-family: 'Uncial Antiqua', cursive;
+    font-family: 'HarryP', 'Uncial Antiqua', cursive;
     font-size: 1rem;
     cursor: pointer;
     letter-spacing: 0.05em;
@@ -466,7 +487,7 @@
   }
   #success-msg .success-icon { font-size: 3rem; margin-bottom: 10px; }
   #success-msg h3 {
-    font-family: 'Uncial Antiqua', cursive;
+    font-family: 'HarryP', 'Uncial Antiqua', cursive;
     color: var(--burgundy);
     font-size: 1.2rem;
     margin-bottom: 6px;
@@ -478,7 +499,7 @@
     line-height: 1.7;
   }
   #success-msg .spell-text {
-    font-family: 'Uncial Antiqua', cursive;
+    font-family: 'HarryP', 'Uncial Antiqua', cursive;
     color: var(--gold);
     font-size: 1.05rem;
     margin: 14px 0 8px;
@@ -493,7 +514,7 @@
   .footer-seal {
     text-align: center;
     margin-top: 24px;
-    font-family: 'Cinzel', serif;
+    font-family: 'HarryP', 'Cinzel', serif;
     font-size: 0.6rem;
     letter-spacing: 0.18em;
     color: var(--burgundy);
@@ -515,6 +536,12 @@
     100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.2); }
   }
 
+  /* ── IMAGENS DO CONVITE ── */
+  .icon-crest   { width: 110px; height: 110px; object-fit: contain; filter: drop-shadow(0 0 10px var(--glow)); }
+  .icon-detail  { width: 32px;  height: 32px;  object-fit: contain; }
+  .icon-house   { width: 36px;  height: 36px;  object-fit: contain; }
+  .icon-success { width: 80px;  height: 80px;  object-fit: contain; }
+
   @keyframes shakeInput {
     0%,100% { transform: translateX(0); }
     25% { transform: translateX(-8px); }
@@ -526,19 +553,25 @@
 
 <div id="envelope-scene">
 
+ 
+
   <!-- ENVELOPE -->
   <div id="envelope" onclick="openEnvelope()">
     <div class="env-body">
+      <!-- aba triangular -->
       <div class="env-flap-top" id="flap"></div>
-      <div class="env-seal" id="seal">⚡</div>
-      <div class="env-stamp">🦅</div>
-      <div class="env-address">
-        <div class="recipient">Derick</div>
-        Ao Festejado da Casa de Hogwarts<br>
-        Quarto à Esquerda, Corredor das Maravilhas<br>
-        <em>URGENT — Por Coruja Especial</em>
+
+      <!-- emblema no topo, sobre a aba -->
+      <div class="env-emblem-wrap" id="emblem-wrap">
+        <img src="img/emblema.png" alt="Hogwarts">
       </div>
-      <div class="open-hint">✦ Toque no lacre para abrir ✦</div>
+
+      <!-- lacre de cera na base -->
+      <div class="env-seal-wrap" id="seal">
+        <img src="img/selo.png" alt="lacre">
+      </div>
+
+      <div class="open-hint">✦ Toque para abrir ✦</div>
     </div>
   </div>
 
@@ -549,7 +582,9 @@
     <span class="corner bl">❧</span>
     <span class="corner br">❧</span>
 
-    <div class="hogwarts-crest">⚡🏰⚡</div>
+    <div class="hogwarts-crest">
+      <img src="img/emblema.png" alt="Brasão de Hogwarts" class="icon-crest">
+    </div>
     <div class="school-badge">Escola de Magia e Bruxaria de Hogwarts</div>
 
     <div class="divider">— ✦ —</div>
@@ -575,17 +610,17 @@
 
     <div class="details-grid">
       <div class="detail-box">
-        <div class="detail-icon">📅</div>
+        <div class="detail-icon"><img src="img/icone-data.png" alt="data" class="icon-detail"></div>
         <div class="detail-label">Data</div>
         <div class="detail-value">DD/MM/AAAA</div>
       </div>
       <div class="detail-box">
-        <div class="detail-icon">🕰️</div>
+        <div class="detail-icon"><img src="img/icone-horario.png" alt="horário" class="icon-detail"></div>
         <div class="detail-label">Horário</div>
         <div class="detail-value">HH:HH hrs</div>
       </div>
       <div class="detail-box">
-        <div class="detail-icon">🗺️</div>
+        <div class="detail-icon"><img src="img/icone-local.png" alt="local" class="icon-detail"></div>
         <div class="detail-label">Local</div>
         <div class="detail-value">Nome do Local</div>
       </div>
@@ -605,24 +640,19 @@
 
       <div class="rsvp-form" id="rsvp-form-wrap">
         <div class="form-group">
-          <label>📛 Seu Nome Completo</label>
-          <input type="text" id="guest-name" placeholder="Ex: Hermione Granger" maxlength="60" autocomplete="name">
-        </div>
-
-        <div class="form-group">
           <label>🏰 Sua Casa de Hogwarts</label>
           <div class="house-select">
             <button class="house-btn gryffindor" onclick="selectHouse(this,'Grifinória')">
-              <span class="house-icon">🦁</span>Grifinória
+              <span class="house-icon"><img src="img/casa-gryffindor.png" alt="Grifinória" class="icon-house"></span>Grifinória
             </button>
             <button class="house-btn slytherin" onclick="selectHouse(this,'Sonserina')">
-              <span class="house-icon">🐍</span>Sonserina
+              <span class="house-icon"><img src="img/casa-slytherin.png" alt="Sonserina" class="icon-house"></span>Sonserina
             </button>
             <button class="house-btn ravenclaw" onclick="selectHouse(this,'Corvinal')">
-              <span class="house-icon">🦅</span>Corvinal
+              <span class="house-icon"><img src="img/casa-ravenclaw.png" alt="Corvinal" class="icon-house"></span>Corvinal
             </button>
             <button class="house-btn hufflepuff" onclick="selectHouse(this,'Lufa-Lufa')">
-              <span class="house-icon">🦡</span>Lufa-Lufa
+              <span class="house-icon"><img src="img/casa-hufflepuff.png" alt="Lufa-Lufa" class="icon-house"></span>Lufa-Lufa
             </button>
           </div>
         </div>
@@ -648,11 +678,13 @@
       </div>
 
       <div id="success-msg">
-        <div class="success-icon">🎉⚡🎉</div>
+        <div class="success-icon">
+          <img src="img/celebracao.png" alt="celebração" class="icon-success">
+        </div>
         <h3>Presença Confirmada!</h3>
         <div class="spell-text">~ Expecto Festivum! ~</div>
         <p>
-          <span id="guest-name-display"></span>, seu nome foi inscrito com tinta de magia permanente
+          Sua presença foi inscrita com tinta de magia permanente
           no Livro de Matrículas de Hogwarts!<br><br>
           O Derick e toda a turma de bruxos estão ansiosos para celebrar com você.
           Até lá, mantenha sua varinha em dia! 🪄
@@ -671,13 +703,16 @@
   let selectedHouse = '';
 
   function openEnvelope() {
-    const flap = document.getElementById('flap');
-    const seal = document.getElementById('seal');
-    flap.style.transform = 'rotateX(180deg)';
-    seal.style.animation = 'none';
-    seal.style.transform = 'translateX(-50%) scale(1.5)';
-    seal.style.opacity = '0';
-    seal.style.transition = 'opacity 0.4s, transform 0.4s';
+    const flap       = document.getElementById('flap');
+    const seal       = document.getElementById('seal');
+    const emblemWrap = document.getElementById('emblem-wrap');
+
+    // A aba "sobe" — ponto do triângulo vai para cima da borda
+    flap.style.clipPath = 'polygon(0 0, 100% 0, 50% -120%)';
+
+    // Lacre e emblema somem
+    seal.style.opacity       = '0';
+    emblemWrap.style.opacity = '0';
 
     createSparkles(window.innerWidth / 2, window.innerHeight / 2, 16);
 
@@ -686,7 +721,7 @@
       const card = document.getElementById('invite-card');
       card.style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 600);
+    }, 620);
   }
 
   function selectHouse(btn, house) {
@@ -696,13 +731,8 @@
   }
 
   function submitRSVP() {
-    const name = document.getElementById('guest-name').value.trim();
     const attendance = document.getElementById('attendance').value;
 
-    if (!name) {
-      shakeEl(document.getElementById('guest-name'));
-      return;
-    }
     if (!attendance) {
       shakeEl(document.getElementById('attendance'));
       return;
@@ -716,7 +746,6 @@
       document.getElementById('rsvp-form-wrap').style.display = 'none';
       const msg = document.getElementById('success-msg');
       msg.style.display = 'block';
-      document.getElementById('guest-name-display').textContent = name;
       msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 400);
   }
